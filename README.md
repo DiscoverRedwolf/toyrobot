@@ -1,4 +1,4 @@
-Toy Robot Simulator challenge
+<strong>Toy Robot Simulator challenge</strong>
 
 Description:
 <ul>
