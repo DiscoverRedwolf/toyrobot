@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require 'highline/import'
+require 'byebug'
+require './lib/toyrobot.rb'
+
+engine = ToyRobot::Engine.new(width: 5, height: 5)
+
+if $stdin.tty?
+  say("<%= color('" + <<-EOS + "', BOLD) %>")
+  +-------------------------------+
+  | * TOY ROBOT SIMULATOR 2000! * |
+  +-------------------------------+
+  EOS
+end
+
+puts "TBD"
