@@ -6,31 +6,31 @@ module ToyRobot
     end
 
     def place(x, y, h)
-      raise unless @world.valid?(x, y)
+      raise "Out of bounds." unless @world.valid?(x, y)
       @x, @y = x, y
       _set_delta(h)
       @spawned = true
     end
 
     def move
-      raise unless @spawned
-      raise unless @world.valid?(@x + @dx, @y + @dy)
+      raise "Robot not placed." unless @spawned
+      raise "Would move out of bounds." unless @world.valid?(@x + @dx, @y + @dy)
       @x += @dx
       @y += @dy
     end
 
     def left
-      raise unless @spawned
+      raise "Robot not placed." unless @spawned
       @dx, @dy = -@dy, @dx
     end
 
     def right
-      raise unless @spawned
+      raise "Robot not placed." unless @spawned
       @dx, @dy = @dy, -@dx
     end
 
     def report
-      raise unless @spawned
+      raise "Robot not placed." unless @spawned
       [@x, @y, _get_heading]
     end
 
@@ -44,13 +44,13 @@ module ToyRobot
     }
 
     def _set_delta(h)
-      raise unless HEADINGS.key?(h)
+      raise "Invalid heading." unless HEADINGS.key?(h)
       @dx, @dy = HEADINGS[h]
     end
 
     def _get_heading
       dir = [@dx, @dy]
-      raise unless HEADINGS.invert.key?(dir)
+      raise "Direction error." unless HEADINGS.invert.key?(dir)
       HEADINGS.invert[dir]
     end
   end
