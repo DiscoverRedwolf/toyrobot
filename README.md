@@ -17,7 +17,11 @@ Make sure you have RVM, and then:
 You can use `rspec` to run the tests.
 
 If you don't like the interactive mode, you can pipe or redirect a file instead.
-Try `bundle exec ./bin/toyrobot < commands.txt` for example.
+For example:
+
+```
+> bundle exec ./bin/toyrobot < commands.txt
+```
 
 Known Limitations
 -----------------
