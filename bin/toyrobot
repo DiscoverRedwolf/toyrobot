@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'highline/import'
+require 'byebug'
+require './lib/toyrobot.rb'
+
+engine = ToyRobot::Engine.new(width: 5, depth: 5)
+parser = ToyRobot::Parser.new(engine)
+
+if $stdin.tty?
+  say("<%= color('" + <<-EOS + "', BOLD) %>")
+  +-------------------------------+
+  | * TOY ROBOT SIMULATOR 2000! * |
+  +-------------------------------+
+  EOS
+  begin
+    loop do
+      input = ask("> ").strip
+      if parser.perform(input)
+        say(parser.message)
+      else
+        say(HighLine.color(parser.message, :red, :bold))
+      end
+    end
+  rescue => e
+    say(HighLine.color("\n" + e.message, :red, :bold))
+  end
+else
+  while input = $stdin.gets("\n")&.strip
+    raise parser.message unless parser.perform(input)
+    puts parser.message if input.downcase == 'report'
+  end
+end
