@@ -8,28 +8,29 @@ module ToyRobot
     def place(x, y, h)
       raise unless @world.valid?(x, y)
       @x, @y = x, y
+      _set_delta(h)
       @spawned = true
     end
 
     def move
-      raise unless spawned
+      raise unless @spawned
       raise unless @world.valid?(@x + @dx, @y + @dy)
       @x += @dx
       @y += @dy
     end
 
     def left
-      raise unless spawned
+      raise unless @spawned
       @dx, @dy = -@dy, @dx
     end
 
     def right
-      raise unless spawned
+      raise unless @spawned
       @dx, @dy = @dy, -@dx
     end
 
     def report
-      raise unless spawned
+      raise unless @spawned
       [@x, @y, _get_heading]
     end
 
@@ -48,7 +49,9 @@ module ToyRobot
     end
 
     def _get_heading
-      raise unless HEADINGS.invert[[@dy, @dy]]
+      dir = [@dx, @dy]
+      raise unless HEADINGS.invert.key?(dir)
+      HEADINGS.invert[dir]
     end
   end
 end
