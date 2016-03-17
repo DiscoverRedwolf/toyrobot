@@ -13,17 +13,21 @@ if $stdin.tty?
   | * TOY ROBOT SIMULATOR 2000! * |
   +-------------------------------+
   EOS
-end
-
-begin
-  loop do
-    input = ask("> ").strip
-    if parser.perform(input)
-      say(parser.message)
-    else
-      say(HighLine.color(parser.message, :red, :bold))
+  begin
+    loop do
+      input = ask("> ").strip
+      if parser.perform(input)
+        say(parser.message)
+      else
+        say(HighLine.color(parser.message, :red, :bold))
+      end
     end
+  rescue => e
+    say(HighLine.color("\n" + e.message, :red, :bold))
   end
-rescue => e
-  say(HighLine.color("\n" + e.message, :red, :bold))
+else
+  while input = $stdin.gets("\n")&.strip
+    raise parser.message unless parser.perform(input)
+    puts parser.message if input.downcase == 'report'
+  end
 end
